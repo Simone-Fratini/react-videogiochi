@@ -8,6 +8,7 @@ const importantGenres = ['Action', 'Adventure', 'RPG', 'Strategy', 'Sports', 'Si
 const GameCategories = () => {
   const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     axios.get(GENRES_URL)
@@ -16,9 +17,11 @@ const GameCategories = () => {
           importantGenres.includes(genre.name)
         );
         setCategories(filteredGenres);
+        setError(null);
       })
       .catch(error => {
         console.error('Error fetching genres:', error);
+        setError('Failed to load game categories');
       })
       .finally(() => {
         setLoading(false);
@@ -29,8 +32,21 @@ const GameCategories = () => {
     return (
       <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
         {[...Array(8)].map((_, index) => (
-          <div key={index} className="h-40 bg-gray-800 rounded-xl animate-pulse"></div>
+          <div key={index} className="relative group overflow-hidden rounded-xl h-40 animate-pulse">
+            <div className="absolute inset-0 bg-gray-700"></div>
+            <div className="absolute inset-0 flex items-center justify-center">
+              <div className="h-6 bg-gray-600 rounded w-24"></div>
+            </div>
+          </div>
         ))}
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="text-red-500 text-center py-4">
+        {error}
       </div>
     );
   }

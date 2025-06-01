@@ -6,18 +6,62 @@ import { GAMES_LIST_URL } from '../globals/apiUrls';
 
 const FeaturedGames = () => {
   const [featuredGames, setFeaturedGames] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     axios.get(GAMES_LIST_URL)
       .then(response => {
-        console.log("ciao");
-        console.log(response.data);
         setFeaturedGames(response.data.data.slice(0, 4));
+        setError(null);
       })
       .catch(error => {
         console.error('Error fetching games:', error);
+        setError('Failed to load featured games');
+      })
+      .finally(() => {
+        setLoading(false);
       });
-  }, []); // run on start
+  }, []);
+
+  if (loading) {
+    return (
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        {[...Array(4)].map((_, index) => (
+          <div 
+            key={index} 
+            className={`group relative overflow-hidden rounded-xl h-96 shadow-xl animate-pulse ${index === 0 || index === 3 ? 'lg:col-span-2' : ''}`}
+          >
+            <div className="absolute inset-0 bg-gray-700"></div>
+            <div className="absolute bottom-0 left-0 p-6 w-full">
+              <div className="flex items-center mb-2">
+                <div className="h-8 bg-gray-600 rounded w-16"></div>
+                <div className="flex gap-2 ml-2">
+                  <div className="h-6 bg-gray-600 rounded w-20"></div>
+                  <div className="h-6 bg-gray-600 rounded w-20"></div>
+                </div>
+              </div>
+              <div className="h-8 bg-gray-600 rounded w-3/4 mb-2"></div>
+              <div className="h-4 bg-gray-600 rounded w-full mb-4"></div>
+              <div className="flex gap-2 mb-4">
+                <div className="h-6 bg-gray-600 rounded w-16"></div>
+                <div className="h-6 bg-gray-600 rounded w-16"></div>
+                <div className="h-6 bg-gray-600 rounded w-16"></div>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="text-red-500 text-center py-4">
+        {error}
+      </div>
+    );
+  }
 
   return (
     <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
@@ -59,7 +103,7 @@ const FeaturedGames = () => {
             <div className="flex flex-wrap gap-2 mb-4">
               {game.platforms?.slice(0, 3).map((platform, i) => (
                 <span key={i} className="px-2 py-1 bg-gray-800/80 text-xs rounded text-gray-300">
-                  {platform.name}
+                  {platform.platform?.name || platform.name || 'Unknown Platform'}
                 </span>
               ))}
             </div>
