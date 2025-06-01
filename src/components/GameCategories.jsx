@@ -1,34 +1,24 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import { useQuery } from '@tanstack/react-query';
 import { GENRES_URL } from '../globals/apiUrls';
 
 const importantGenres = ['Action', 'Adventure', 'RPG', 'Strategy', 'Sports', 'Simulation', 'Racing', 'Indie'];
 
 const GameCategories = () => {
-  const [categories, setCategories] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-
-  useEffect(() => {
-    axios.get(GENRES_URL)
-      .then(response => {
-        const filteredGenres = response.data.filter(genre => 
+  const { data: categories, isLoading, error } = useQuery({
+    queryKey: ['gameCategories'],
+    queryFn: () => 
+      axios.get(GENRES_URL)
+        .then(response => response.data.filter(genre => 
           importantGenres.includes(genre.name)
-        );
-        setCategories(filteredGenres);
-        setError(null);
-      })
-      .catch(error => {
-        console.error('Error fetching genres:', error);
-        setError('Failed to load game categories');
-      })
-      .finally(() => {
-        setLoading(false);
-      });
-  }, []);
+        )),
+    staleTime: 1000 * 60 * 5, // 5 minutes
+    cacheTime: 1000 * 60 * 5
+  });
 
-  if (loading) {
+  if (isLoading) {
     return (
       <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
         {[...Array(8)].map((_, index) => (
@@ -46,7 +36,7 @@ const GameCategories = () => {
   if (error) {
     return (
       <div className="text-red-500 text-center py-4">
-        {error}
+        Failed to load game categories
       </div>
     );
   }

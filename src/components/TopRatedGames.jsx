@@ -1,31 +1,22 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import { Star, ChevronRight } from 'lucide-react';
 import axios from 'axios';
+import { useQuery } from '@tanstack/react-query';
 import { TOP_RATED_URL } from '../globals/apiUrls';
 import { processImageUrl } from '../functions/imageUrl';
 
 const TopRatedGames = () => {
-  const [topRatedGames, setTopRatedGames] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const { data: topRatedGames, isLoading, error } = useQuery({
+    queryKey: ['topRatedGames'],
+    queryFn: () => 
+      axios.get(TOP_RATED_URL)
+        .then(response => response.data.slice(0, 6)),
+    staleTime: 1000 * 60 * 5, // 5 minutes
+    cacheTime: 1000 * 60 * 5
+  });
 
-  useEffect(() => {
-    axios.get(TOP_RATED_URL)
-      .then(response => {
-        setTopRatedGames(response.data.slice(0, 6));
-        setError(null);
-      })
-      .catch(error => {
-        console.error('Error fetching top rated games:', error);
-        setError('Failed to load top rated games');
-      })
-      .finally(() => {
-        setLoading(false);
-      });
-  }, []);
-
-  if (loading) {
+  if (isLoading) {
     return (
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {[...Array(6)].map((_, index) => (
@@ -48,7 +39,7 @@ const TopRatedGames = () => {
   if (error) {
     return (
       <div className="text-red-500 text-center py-4">
-        {error}
+        Failed to load top rated games
       </div>
     );
   }
