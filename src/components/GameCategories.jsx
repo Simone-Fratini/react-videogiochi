@@ -61,8 +61,10 @@ const GameCategories = () => {
         >
           <div className="absolute inset-0 bg-gradient-to-br bg-opacity-80 z-0 transition-opacity duration-300 group-hover:opacity-90"
             style={{ backgroundImage: `url(${category.background_image})`, backgroundSize: 'cover', backgroundPosition: 'center' }}
-          ></div>
-          <div className={`absolute inset-0 bg-gradient-to-br ${category.color} opacity-80 z-10`}></div>
+          >
+            
+          </div>
+          <div className={`absolute inset-0 bg-gradient-to-br ${category.color} opacity-90 z-10`}></div>
           <div className="absolute inset-0 flex items-center justify-center z-20">
             <h3 className="text-xl font-bold text-white">{category.name}</h3>
           </div>

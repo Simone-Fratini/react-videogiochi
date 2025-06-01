@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { Star, ChevronRight } from 'lucide-react';
 import axios from 'axios';
 import { TOP_RATED_URL } from '../globals/apiUrls';
+import { processImageUrl } from '../functions/imageUrl';
 
 const TopRatedGames = () => {
   const [topRatedGames, setTopRatedGames] = useState([]);
@@ -62,7 +63,7 @@ const TopRatedGames = () => {
         >
           <div className="w-1/3 relative">
             <img 
-              src={game.background_image} 
+              src={processImageUrl(game.background_image)} 
               alt={game.name} 
               className="h-full w-full object-cover"
             />
