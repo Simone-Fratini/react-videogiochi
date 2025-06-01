@@ -1,26 +1,34 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Star, ChevronRight } from 'lucide-react';
-import { games } from '../data/games';
-
-// Get top 6 rated games
-const topRatedGames = [...games]
-  .sort((a, b) => b.rating - a.rating)
-  .slice(0, 6);
+import axios from 'axios';
+import { TOP_RATED_URL } from '../globals/apiUrls';
 
 const TopRatedGames = () => {
+  const [topRatedGames, setTopRatedGames] = useState([]);
+
+  useEffect(() => {
+    axios.get(TOP_RATED_URL)
+      .then(response => {
+        setTopRatedGames(response.data.slice(0, 6));
+      })
+      .catch(error => {
+        console.error('Error fetching top rated games:', error);
+      });
+  }, []);
+
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
       {topRatedGames.map(game => (
         <Link
           key={game.id}
-          to={`/games/${game.id}`}
+          to={`/games/${game.slug}`}
           className="flex bg-gray-800 rounded-lg overflow-hidden hover:bg-gray-750 transition-colors group"
         >
           <div className="w-1/3 relative">
             <img 
-              src={game.coverImage} 
-              alt={game.title} 
+              src={game.background_image} 
+              alt={game.name} 
               className="h-full w-full object-cover"
             />
             <div className="absolute top-2 left-2">
@@ -33,16 +41,16 @@ const TopRatedGames = () => {
           
           <div className="w-2/3 p-4">
             <h3 className="text-white font-medium group-hover:text-purple-400 transition-colors mb-1">
-              {game.title}
+              {game.name}
             </h3>
-            <p className="text-gray-400 text-xs mb-2">{game.developer}</p>
+            
             <div className="flex flex-wrap gap-1 mb-2">
-              {game.platforms.slice(0, 2).map((platform, index) => (
+              {game.platforms?.slice(0, 2).map((platform, index) => (
                 <span key={index} className="text-xs bg-gray-700 px-2 py-0.5 rounded text-gray-300">
-                  {platform.split(' ')[0]}
+                  {platform.platform.name}
                 </span>
               ))}
-              {game.platforms.length > 2 && (
+              {game.platforms?.length > 2 && (
                 <span className="text-xs bg-gray-700 px-2 py-0.5 rounded text-gray-300">
                   +{game.platforms.length - 2}
                 </span>

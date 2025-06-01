@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { GENRES_URL } from '../globals/apiUrls';
 
-const desiredGenres = ['Action', 'Adventure', 'RPG', 'Strategy', 'Sports', 'Simulation', 'Racing', 'Indie'];
+const importantGenres = ['Action', 'Adventure', 'RPG', 'Strategy', 'Sports', 'Simulation', 'Racing', 'Indie'];
 
 const GameCategories = () => {
   const [categories, setCategories] = useState([]);
@@ -13,7 +13,7 @@ const GameCategories = () => {
     axios.get(GENRES_URL)
       .then(response => {
         const filteredGenres = response.data.filter(genre => 
-          desiredGenres.includes(genre.name)
+          importantGenres.includes(genre.name)
         );
         setCategories(filteredGenres);
       })
