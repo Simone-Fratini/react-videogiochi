@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { Star, ChevronLeft, Monitor, Smartphone, Gamepad, Clock, Calendar, Users } from 'lucide-react';
 import { BASE_URL } from '../globals/apiUrls';
+import { processImageUrl } from '../functions/imageUrl';
 import axios from 'axios';
 
 const GameDetail = () => {
@@ -65,7 +66,7 @@ const GameDetail = () => {
         <div className="md:w-1/3">
           <div className="relative overflow-hidden rounded-lg bg-gray-800 shadow-xl h-80 md:h-96">
             <img 
-              src={game.background_image} 
+              src={processImageUrl(game.background_image)} 
               alt={game.name} 
               className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
             />

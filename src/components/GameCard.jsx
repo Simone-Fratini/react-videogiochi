@@ -10,8 +10,8 @@ const GameCard = ({ game }) => {
     >
       <div className="relative h-48 overflow-hidden">
         <img 
-          src={game.coverImage} 
-          alt={game.title} 
+          src={game.background_image} 
+          alt={game.name} 
           className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-gray-900 to-transparent"></div>
@@ -26,31 +26,38 @@ const GameCard = ({ game }) => {
         
         {/* Platform Icons on top right */}
         <div className="absolute top-2 right-2 flex space-x-1">
-          {game.platforms.map((platform, index) => (
+          {game.platforms?.slice(0, 3).map((platform, index) => (
             <span 
               key={index}
               className="bg-gray-900/80 text-xs text-white px-2 py-1 rounded"
             >
-              {platform.slice(0, 2)}
+              {platform.platform?.name?.slice(0, 2) || platform.name?.slice(0, 2) || 'PC'}
             </span>
           ))}
+          {game.platforms?.length > 3 && (
+            <span className="bg-gray-900/80 text-xs text-white px-2 py-1 rounded">
+              +{game.platforms.length - 3}
+            </span>
+          )}
         </div>
       </div>
       
       <div className="p-4">
         <h3 className="text-lg font-bold text-white mb-1 group-hover:text-purple-400 transition-colors">
-          {game.title}
+          {game.name}
         </h3>
-        <p className="text-sm text-gray-400 mb-2">{game.developer}</p>
+        <p className="text-sm text-gray-400 mb-2">{game.developers?.[0]?.name || 'Unknown Developer'}</p>
         
         <div className="flex flex-wrap gap-2 mb-3">
-          <span className="px-2 py-1 bg-gray-700 text-xs rounded text-gray-300">
-            {game.category}
-          </span>
+          {game.genres?.slice(0, 2).map((genre, index) => (
+            <span key={index} className="px-2 py-1 bg-gray-700 text-xs rounded text-gray-300">
+              {genre.name}
+            </span>
+          ))}
         </div>
         
         <p className="text-gray-400 text-sm line-clamp-2">
-          {game.description}
+          {game.description_raw || game.description}
         </p>
       </div>
     </Link>

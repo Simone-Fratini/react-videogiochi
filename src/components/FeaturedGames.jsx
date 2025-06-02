@@ -4,6 +4,7 @@ import { Star, ChevronRight } from 'lucide-react';
 import axios from 'axios';
 import { useQuery } from '@tanstack/react-query';
 import { GAMES_LIST_URL } from '../globals/apiUrls';
+import { processImageUrl } from '../functions/imageUrl';
 
 const FeaturedGames = () => {
   const { data: featuredGames, isLoading, error } = useQuery({
@@ -63,7 +64,7 @@ const FeaturedGames = () => {
           className={`group relative overflow-hidden rounded-xl h-96 shadow-xl ${index === 0 || index === 3 ? 'lg:col-span-2' : ''}`}>
           <div className="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/70 to-transparent z-10"></div>
           <img 
-            src={game.background_image} 
+            src={processImageUrl(game.background_image)}
             alt={game.name} 
             className="absolute inset-0 w-full h-full object-cover transform transition-transform duration-700 group-hover:scale-110"
             />
