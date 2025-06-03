@@ -7,6 +7,8 @@ import TopRatedGames from '../components/TopRatedGames';
 import SearchBar from '../components/SearchBar';
 
 const HomePage = () => {
+
+
   return (
     <div className="w-full">
       {/* Hero Section */}
