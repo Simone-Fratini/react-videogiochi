@@ -1,17 +1,27 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Menu, X, Gamepad, Search } from 'lucide-react';
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
   const location = useLocation();
-
- 
+  const navigate = useNavigate();
 
   // Close mobile menu on route change
   useEffect(() => {
     setIsMenuOpen(false);
   }, [location]);
+
+  const handleSearch = (e) => {
+    e.preventDefault();
+    if (searchQuery.trim()) {
+      navigate(`/search?q=${encodeURIComponent(searchQuery.trim())}`);
+      setIsSearchOpen(false);
+      setSearchQuery('');
+    }
+  };
 
   return (
     <header className="sticky top-0 z-50 bg-gray-900/90 backdrop-blur-sm shadow-lg">
@@ -29,15 +39,33 @@ const Navbar = () => {
             <nav className="hidden md:flex space-x-8">
               <NavLink to="/" label="Home" />
               <NavLink to="/games" label="Games" />
-              <NavLink to="/games?category=New%20Releases" label="New Releases" />
-              <NavLink to="/games?category=Top%20Rated" label="Top Rated" />
+              <NavLink to="/newReleases" label="New Releases" />
+              <NavLink to="/toprated" label="Top Rated" />
             </nav>
             
-            {/* Search Icon */}
+            {/* Search Icon and Input */}
             <div className="hidden md:flex items-center">
-              <button className="p-2 rounded-full hover:bg-gray-800 transition-colors">
+              <button 
+                className="p-2 rounded-full hover:bg-gray-800 transition-colors"
+                onClick={() => setIsSearchOpen(!isSearchOpen)}
+              >
                 <Search className="h-5 w-5 text-gray-300" />
               </button>
+              {isSearchOpen && (
+                <div className="absolute top-16 right-4 w-64 bg-gray-800 rounded-lg shadow-lg p-2 animate-fade-down">
+                  <form onSubmit={handleSearch} className="relative">
+                    <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
+                    <input
+                      type="text"
+                      placeholder="Search games..."
+                      className="w-full pl-10 pr-4 py-2 bg-gray-700 text-white rounded-lg focus:outline-none"
+                      value={searchQuery}
+                      onChange={(e) => setSearchQuery(e.target.value)}
+                      autoFocus
+                    />
+                  </form>
+                </div>
+              )}
             </div>
             
             {/* Mobile Menu Button */}

@@ -3,18 +3,25 @@ import { Link } from 'react-router-dom';
 import { Star, ChevronRight } from 'lucide-react';
 import axios from 'axios';
 import { useQuery } from '@tanstack/react-query';
-import { GAMES_LIST_URL } from '../globals/apiUrls';
+import { GAMES_LIST_URL,TOP_RATED_URL } from '../globals/apiUrls';
 import { processImageUrl } from '../functions/imageUrl';
 
 const FeaturedGames = () => {
   const { data: featuredGames, isLoading, error } = useQuery({
     queryKey: ['featuredGames'],
-    queryFn: () => 
-      axios.get(GAMES_LIST_URL)
-          .then(response => response.data.data.slice(0, 4)),
-          staleTime: 1000 * 60 * 5, // 5 minutes
-          cacheTime: 1000 * 60 * 5
+    queryFn: async () => {
+      console.log('Fetching featured games...');
+      const response = await axios.get(TOP_RATED_URL);
+      console.log('API Response:', response.data);
+      return response.data.slice(0, 4);
+    },
+    staleTime: 1000 * 60 * 5, // 5 minutes
+    cacheTime: 1000 * 60 * 5
   });
+
+  console.log('Featured Games Data:', featuredGames);
+  console.log('Loading State:', isLoading);
+  console.log('Error State:', error);
 
   if (isLoading) {
     return (
@@ -48,6 +55,7 @@ const FeaturedGames = () => {
   }
 
   if (error) {
+    console.error('Error loading featured games:', error);
     return (
       <div className="text-red-500 text-center py-4">
         Failed to load featured games
@@ -57,7 +65,7 @@ const FeaturedGames = () => {
 
   return (
     <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-      {featuredGames.map((game, index) => (
+      {featuredGames?.map((game, index) => (
         <Link 
           key={game.id}
           to={`/games/${game.slug}`}

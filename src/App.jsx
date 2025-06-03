@@ -5,6 +5,9 @@ import Layout from './components/Layout';
 import Home from './pages/Home';
 import GameDetail from './pages/GameDetail';
 import Games from './pages/Games';
+import NewReleases from './pages/NewReleases'
+import SearchPage from './pages/SearchPage';
+
 
 const queryClient = new QueryClient();
 
@@ -17,6 +20,8 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/games" element={<Games />} />
             <Route path="/games/:slug" element={<GameDetail />} />
+            <Route path="/newReleases" element={<NewReleases />} />
+            <Route path="/search" element={<SearchPage />} />
           </Routes>
         </Layout>
       </Router>

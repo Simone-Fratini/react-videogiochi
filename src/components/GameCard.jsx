@@ -1,16 +1,17 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Star } from 'lucide-react';
+import { processImageUrl } from '../functions/imageUrl';
 
 const GameCard = ({ game }) => {
   return (
     <Link 
-      to={`/games/${game.id}`}
+      to={`/games/${game.slug}`}
       className="bg-gray-800 rounded-lg overflow-hidden shadow-lg transform transition-all duration-300 hover:scale-[1.02] hover:shadow-purple-900/20 group"
     >
       <div className="relative h-48 overflow-hidden">
         <img 
-          src={game.background_image} 
+          src={processImageUrl(game.background_image)} 
           alt={game.name} 
           className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
         />
@@ -57,7 +58,13 @@ const GameCard = ({ game }) => {
         </div>
         
         <p className="text-gray-400 text-sm line-clamp-2">
-          {game.description_raw || game.description}
+          {game.description_raw ? (
+            game.description_raw
+          ) : game.description ? (
+            <span dangerouslySetInnerHTML={{ __html: game.description }} />
+          ) : (
+            'No description available'
+          )}
         </p>
       </div>
     </Link>
