@@ -7,6 +7,7 @@ import GameDetail from './pages/GameDetail';
 import Games from './pages/Games';
 import NewReleases from './pages/NewReleases'
 import SearchPage from './pages/SearchPage';
+import TopRatedGames from './pages/TopRatedGames';
 
 
 const queryClient = new QueryClient();
@@ -22,6 +23,7 @@ function App() {
             <Route path="/games/:slug" element={<GameDetail />} />
             <Route path="/newReleases" element={<NewReleases />} />
             <Route path="/search" element={<SearchPage />} />
+            <Route path="/toprated" element={<TopRatedGames />} />
           </Routes>
         </Layout>
       </Router>

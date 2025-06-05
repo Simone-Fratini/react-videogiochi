@@ -12,7 +12,7 @@ const HomePage = () => {
   return (
     <div className="w-full">
       {/* Hero Section */}
-      <section className="relative h-[80vh] overflow-hidden">
+      <section className="relative h-[100vh] overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-r from-purple-900/80 to-gray-900/90 z-10"></div>
         <div 
           className="absolute inset-0 bg-cover bg-center z-0" 

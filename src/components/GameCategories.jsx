@@ -46,7 +46,7 @@ const GameCategories = () => {
       {categories.map(category => (
         <Link 
           key={category.id}
-          to={`/games/?category=${category.slug}`}
+          to={`/games/?category=${category.id}`}
           className="relative group overflow-hidden rounded-xl h-40 transition-transform hover:-translate-y-1"
         >
           <div className="absolute inset-0 bg-gradient-to-br bg-opacity-80 z-0 transition-opacity duration-300 group-hover:opacity-90"

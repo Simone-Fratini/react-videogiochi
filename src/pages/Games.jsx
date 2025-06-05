@@ -1,13 +1,15 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Filter, Search, ChevronLeft, ChevronRight } from 'lucide-react';
 import GameCard from '../components/GameCard';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import { GAMES_LIST_URL } from '../globals/apiUrls';
+import { useSearchParams } from 'react-router-dom';
 
 const Games = () => {
+  const [searchParams] = useSearchParams();
   const [searchTerm, setSearchTerm] = useState('');
-  const [selectedGenre, setSelectedGenre] = useState('');
+  const [selectedGenre, setSelectedGenre] = useState(searchParams.get('category') || '');
   const [selectedPlatform, setSelectedPlatform] = useState('');
   const [filterOpen, setFilterOpen] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
