@@ -60,7 +60,7 @@ const Games = () => {
           />
         </div>
         <button 
-          className="md:w-auto px-4 py-3 bg-gray-800 text-white rounded-lg flex items-center justify-center hover:bg-gray-700 transition-colors"
+          className="md:w-auto px-4 py-3 bg-gray-800 text-white rounded-lg flex items-center justify-center hover:bg-gray-700 transition-colors cursor-pointer"
           onClick={() => setFilterOpen(!filterOpen)}
         >
           <Filter className="mr-2" />
@@ -143,7 +143,7 @@ const Games = () => {
             <button
               onClick={() => handlePageChange(currentPageNumber - 1)}
               disabled={currentPageNumber === 1}
-              className="p-2 rounded-lg bg-gray-800 text-white disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-700 transition-colors"
+              className="p-2 rounded-lg bg-gray-800 text-white disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-700 transition-colors cursor-pointer"
             >
               <ChevronLeft className="w-5 h-5" />
             </button>
@@ -155,7 +155,7 @@ const Games = () => {
             <button
               onClick={() => handlePageChange(currentPageNumber + 1)}
               disabled={currentPageNumber === totalPages}
-              className="p-2 rounded-lg bg-gray-800 text-white disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-700 transition-colors"
+              className="p-2 rounded-lg bg-gray-800 text-white disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-700 transition-colors cursor-pointer"
             >
               <ChevronRight className="w-5 h-5" />
             </button>

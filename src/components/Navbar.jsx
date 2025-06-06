@@ -52,7 +52,7 @@ const Navbar = () => {
                 <Search className="h-5 w-5 text-gray-300" />
               </button>
               {isSearchOpen && (
-                <div className="absolute top-16 right-4 w-64 bg-gray-800 rounded-lg shadow-lg p-2 animate-fade-down">
+                <div className="absolute top-16 right-4 w-64 bg-gray-800 rounded-lg shadow-lg p-2 animate-fade-down mb-3">
                   <form onSubmit={handleSearch} className="relative">
                     <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
                     <input
@@ -82,19 +82,22 @@ const Navbar = () => {
         {isMenuOpen && (
           <div className="md:hidden bg-gray-800 py-4 px-2 rounded-lg mt-2 animate-fade-down">
             <nav className="flex flex-col space-y-4">
-              <NavLink to="/" label="Home" mobile />
-              <NavLink to="/games" label="Games" mobile />
-              <NavLink to="/games?category=New%20Releases" label="New Releases" mobile />
-              <NavLink to="/games?category=Top%20Rated" label="Top Rated" mobile />
+              <NavLink to="/" mobile label="Home" />
+              <NavLink to="/games" mobile label="Games" />
+              <NavLink to="/newReleases" mobile label="New Releases" />
+              <NavLink to="/toprated" mobile label="Top Rated" />
               <div className="pt-2 border-t border-gray-700">
-                <div className="relative">
+                <form onSubmit={handleSearch} className="relative">
                   <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
                   <input
                     type="text"
                     placeholder="Search games..."
                     className="w-full pl-10 pr-4 py-2 bg-gray-700 text-white rounded-lg focus:outline-none"
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    autoFocus
                   />
-                </div>
+                </form>
               </div>
             </nav>
           </div>
