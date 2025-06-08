@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { ChevronRight } from 'lucide-react';
+import Spline from '@splinetool/react-spline';
 import FeaturedGames from '../components/FeaturedGames';
 import GameCategories from '../components/GameCategories';
 import TopRatedGames from '../components/TopRatedGames';
@@ -21,18 +22,23 @@ const HomePage = () => {
             backgroundPosition: "center"
           }}
         ></div>
-        <div className="relative z-20 container mx-auto px-4 h-full flex flex-col justify-center">
-          <h1 className="text-4xl md:text-6xl font-bold mb-4 text-white max-w-3xl animate-fade-in-down">
-            Discover Your Next Gaming Adventure
-          </h1>
-          <p className="text-lg md:text-xl text-gray-200 max-w-2xl mb-8 animate-fade-in-up">
-            Explore thousands of games with detailed reviews, ratings, and recommendations from our community of gamers.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 animate-fade-in">
-            <Link to="/games" className="px-6 py-3 bg-purple-600 text-white font-medium rounded-lg hover:bg-purple-700 transition-colors shadow-lg shadow-purple-600/30 inline-flex items-center justify-center">
-              Browse Games <ChevronRight className="ml-2 h-5 w-5" />
-            </Link>
-            <SearchBar />
+        <div className="relative z-20 container mx-auto px-4 h-full flex items-center">
+          <div className="w-full lg:w-1/2">
+            <h1 className="text-4xl md:text-6xl font-bold mb-4 text-white max-w-3xl animate-fade-in-down">
+              Discover Your Next Gaming Adventure
+            </h1>
+            <p className="text-lg md:text-xl text-gray-200 max-w-2xl mb-8 animate-fade-in-up">
+              Explore thousands of games with detailed reviews, ratings, and recommendations from our community of gamers.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 animate-fade-in">
+              <Link to="/games" className="px-6 py-3 bg-purple-600 text-white font-medium rounded-lg hover:bg-purple-700 transition-colors shadow-lg shadow-purple-600/30 inline-flex items-center justify-center">
+                Browse Games <ChevronRight className="ml-2 h-5 w-5" />
+              </Link>
+              <SearchBar />
+            </div>
+          </div>
+          <div className="hidden lg:block w-1/2 h-full">
+            <Spline scene="https://prod.spline.design/efshwaWlKYXCHV20/scene.splinecode" />
           </div>
         </div>
       </section>
