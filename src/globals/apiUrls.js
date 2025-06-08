@@ -1,4 +1,4 @@
-export const BASE_URL = 'http://69.10.53.69/api';
+export const BASE_URL = 'https://simone-personal-project.org/api';
 
 // Games endpoints
 export const GAMES_LIST_URL = `${BASE_URL}/api/games`;
