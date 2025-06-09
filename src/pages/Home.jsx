@@ -31,11 +31,11 @@ const HomePage = () => {
               Explore thousands of games with detailed reviews, ratings, and recommendations from our community of gamers.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 animate-fade-in">
-              <Link to="/games" className="px-6 py-3 bg-purple-600 text-white font-medium rounded-lg hover:bg-purple-700 transition-colors shadow-lg shadow-purple-600/30 inline-flex items-center justify-center">
-                Browse Games <ChevronRight className="ml-2 h-5 w-5" />
-              </Link>
               <SearchBar />
             </div>
+            <p className="text-gray-200 mt-4 animate-fade-in pl-2">
+              or start by <Link to="/games" className="text-purple-400 hover:text-purple-300 underline">browsing thousands of games</Link>
+            </p>
           </div>
           <div className="hidden lg:block w-1/2 h-full">
             <Spline scene="https://prod.spline.design/efshwaWlKYXCHV20/scene.splinecode" />
