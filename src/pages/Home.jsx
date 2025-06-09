@@ -33,8 +33,8 @@ const HomePage = () => {
             <div className="flex flex-col sm:flex-row gap-4 animate-fade-in">
               <SearchBar />
             </div>
-            <p className="text-gray-200 mt-4 animate-fade-in pl-2">
-              or start by <Link to="/games" className="text-purple-400 hover:text-purple-300 underline">browsing thousands of games</Link>
+            <p className="text-gray-200 mt-4 animate-fade-in pl-2 font-bold">
+              or start <Link to="/games" className="text-purple-400 hover:text-purple-300 underline">Browse Thousands Games</Link>
             </p>
           </div>
           <div className="hidden lg:block w-1/2 h-full">
